@@ -1,0 +1,15 @@
+sylius_grid:
+    grids:
+        sylius_admin_product:
+            fields:
+                brand:
+                    type: twig
+                    label: acseo_sylius_brand.ui.brand
+                    options:
+                        template: "@AcseoSyliusBrandPlugin/Grid/Field/brand.html.twig"
+            filters:
+                brand:
+                    type: entity
+                    label: acseo_sylius_brand.ui.brand
+                    form_options:
+             #           class: "%acseo_sylius_brand.model.brand.class%"

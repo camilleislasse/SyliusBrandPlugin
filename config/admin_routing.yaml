@@ -1,0 +1,34 @@
+acseo_sylius_brand_admin_ajax_brands_by_phrase:
+    path: /ajax/brand/search
+    methods: [GET]
+    defaults:
+        _controller: acseo_sylius_brand.controller.brand:indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByPhrase
+                arguments:
+                    phrase: $phrase
+
+acseo_sylius_brand_admin_ajax_brand_by_code:
+    path: /ajax/brand/
+    methods: [GET]
+    defaults:
+        _controller: acseo_sylius_brand.controller.brand:indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findBy
+                arguments: [code: $code]
+
+sylius_crud_routes:
+    resource: 'sylius.routing.loader.crud_routes_attributes'
+    type: service
+
+sylius_routes:
+    resource: 'sylius.routing.loader.routes_attributes'
+    type: service

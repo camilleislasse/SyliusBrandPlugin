@@ -1,0 +1,6 @@
+imports:
+    - { resource: "app/twig_hooks/**/*.yaml" }
+sylius_resource:
+    mapping:
+        paths:
+            - '%kernel.project_dir%/../../src/Entity'
