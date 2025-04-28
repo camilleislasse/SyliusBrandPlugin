@@ -6,7 +6,7 @@ namespace ACSEO\SyliusBrandPlugin\Entity;
 
 interface BrandAwareInterface
 {
-    public function getBrand(): ?BrandInterface;
+    public function getBrand(): ?object;
 
     public function setBrand(?BrandInterface $brand): void;
 }

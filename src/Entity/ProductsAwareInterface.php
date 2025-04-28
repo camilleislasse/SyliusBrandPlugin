@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ACSEO\SyliusBrandPlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\ProductInterface;
 
 interface ProductsAwareInterface
 {

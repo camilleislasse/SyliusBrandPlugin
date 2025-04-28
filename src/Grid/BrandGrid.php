@@ -14,7 +14,7 @@ use Sylius\Bundle\GridBundle\Builder\Filter\StringFilter;
 use Sylius\Bundle\GridBundle\Builder\GridBuilderInterface;
 use Sylius\Bundle\GridBundle\Grid\AbstractGrid;
 use Sylius\Bundle\GridBundle\Grid\ResourceAwareGridInterface;
-use Acseo\SyliusBrandPlugin\Entity\Brand;
+use ACSEO\SyliusBrandPlugin\Entity\Brand;
 
 final class BrandGrid extends AbstractGrid implements ResourceAwareGridInterface
 {
@@ -27,17 +27,17 @@ final class BrandGrid extends AbstractGrid implements ResourceAwareGridInterface
     {
         $gridBuilder
             ->addField(
-                TwigField::create('image', '@ACSEOSyliusBrandPlugin/Grid/Field/image.html.twig')
-                    ->setLabel('acseo_sylius_brand.ui.image')
+                TwigField::create('images', '@ACSEOSyliusBrandPlugin/Grid/Field/image.html.twig')
+                    ->setLabel('acseo.brand.ui.image')
             )
             ->addField(
                 StringField::create('name')
-                    ->setLabel('acseo_sylius_brand.ui.name')
+                    ->setLabel('acseo.brand.ui.name')
                     ->setSortable(true)
             )
             ->addField(
                 StringField::create('code')
-                    ->setLabel('acseo_sylius_brand.ui.code')
+                    ->setLabel('acseo.brand.ui.code')
                     ->setSortable(true)
             )
             ->addFilter(

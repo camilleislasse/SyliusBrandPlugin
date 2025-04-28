@@ -4,3 +4,12 @@ sylius_resource:
     mapping:
         paths:
             - '%kernel.project_dir%/../../src/Entity'
+
+framework:
+    default_locale: '%locale%'
+    translator:
+        paths:
+            - '%kernel.project_dir%/../../translations'
+        fallbacks:
+            - '%locale%'
+            - 'en'

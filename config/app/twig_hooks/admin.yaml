@@ -1,11 +1,28 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_admin.base#stylesheets':
-            custom_styles:
-                template: '@ACSEOSyliusBrandPlugin/admin/shared/layout/base/styles.html.twig'
-                priority: -100
-
-        'sylius_admin.base#javascripts':
-            custom_scripts:
-                template: '@ACSEOSyliusBrandPlugin/admin/shared/layout/base/scripts.html.twig'
-                priority: -100
+        'sylius_admin.brand.create.content':
+            form:
+                component: 'ACSEO\SyliusBrandPlugin\Twig\Components\BrandImageComponent'
+                props:
+                    form: '@=_context.form'
+                    resource: '@=_context.resource'
+        'sylius_admin.brand.update.content':
+            form:
+                component: 'ACSEO\SyliusBrandPlugin\Twig\Components\BrandImageComponent'
+                props:
+                    form: '@=_context.form'
+                    resource: '@=_context.resource'
+        'sylius_admin.product.create.content.form.side_navigation':
+            general:
+                template: '@ACSEOSyliusBrandPlugin/admin/product/form/side_navigation/brand.html.twig'
+                priority: 1000
+        'sylius_admin.product.update.content.form.side_navigation':
+            general:
+                template: '@ACSEOSyliusBrandPlugin/admin/product/form/side_navigation/brand.html.twig'
+                priority: 1000
+        'sylius_admin.product.update.content.form.sections':
+            brand:
+                template: '@ACSEOSyliusBrandPlugin/admin/product/form/sections/brand.html.twig'
+        'sylius_admin.product.create.content.form.sections':
+            brand:
+                template: '@ACSEOSyliusBrandPlugin/admin/product/form/sections/brand.html.twig'

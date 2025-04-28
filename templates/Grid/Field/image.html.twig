@@ -1,0 +1,21 @@
+{% set logoImage = null %}
+{% set firstImage = null %}
+
+{% for image in data %}
+    {% if firstImage is null %}
+        {% set firstImage = image %}
+    {% endif %}
+    {% if image.isLogo() %}
+        {% set logoImage = image %}
+    {% endif %}
+{% endfor %}
+
+{% if logoImage %}
+    {% set path = logoImage.path|imagine_filter(filter|default('sylius_small')) %}
+{% elseif firstImage %}
+    {% set path = firstImage.path|imagine_filter(filter|default('sylius_small')) %}
+{% else %}
+    {% set path = '//placehold.it/120x90' %}
+{% endif %}
+
+<img src="{{ asset(path) }}" alt="" class="ui bordered image">

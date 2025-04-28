@@ -4,43 +4,39 @@ declare(strict_types=1);
 
 namespace ACSEO\SyliusBrandPlugin\Entity;
 
+use ACSEO\SyliusBrandPlugin\Form\Type\BrandType;
 use ACSEO\SyliusBrandPlugin\Grid\BrandGrid;
 use ACSEO\SyliusBrandPlugin\Repository\BrandRepository;
+use ACSEO\SyliusBrandPlugin\State\ImageUploadProcessor;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Resource\Metadata\AsResource;
 use Sylius\Resource\Metadata\Create;
 use Sylius\Resource\Metadata\Delete;
 use Sylius\Resource\Metadata\Index;
-use Sylius\Resource\Metadata\Show;
 use Sylius\Resource\Metadata\Update;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
 #[ORM\Table(name: 'acseo_brand')]
 #[AsResource(
+    alias: 'acseo.brand',
     section: 'admin',
-    formType: null,
+    formType: BrandType::class,
     templatesDir: '@SyliusAdmin/shared/crud',
-    routePrefix: '/admin',
-   # redirect: 'update',
     driver: 'doctrine/orm',
     vars: [
-        'all' => [
-            'subheader' => 'loevgaard_sylius_brand.ui.brand',
-            'templates' => [
-                'form' => '@LoevgaardSyliusBrandPlugin/Admin/Brand/_form.html.twig',
-            ],
-        ],
-        'index' => [
-            'icon' => 'file image outline',
-        ]
+        'header' => 'acseo.brand.ui.brands',
+        'subheader' => 'acseo.brand.ui.brands',
     ],
     operations: [
-        new Create(),
+        new Create(
+            processor: ImageUploadProcessor::class,
+        ),
+        new Update(
+            processor: ImageUploadProcessor::class,
+            redirectToRoute: 'update',
+        ),
         new Index(grid: BrandGrid::class),
-        new Show(),
-        new Update(),
         new Delete()
     ]
 )]

@@ -5,36 +5,21 @@ declare(strict_types=1);
 namespace ACSEO\SyliusBrandPlugin\Repository;
 
 
+use ACSEO\SyliusBrandPlugin\Entity\BrandImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use ACSEO\SyliusBrandPlugin\Entity\BrandInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepositoryTrait;
-use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 
+// @phpstan-ignore-next-line
 class BrandImageRepository extends ServiceEntityRepository implements RepositoryInterface
 {
     use ResourceRepositoryTrait;
 
-    public function createListQueryBuilder(string $brandCode): QueryBuilder
+    public function __construct(ManagerRegistry $registry)
     {
-        return $this->createQueryBuilder('o')
-            ->addSelect('brand')
-            ->innerJoin('o.owner', 'brand', 'WITH', 'brand.code = :brandCode')
-            ->setParameter('brandCode', $brandCode)
-        ;
-    }
-
-    public function createPaginatorForBrandAndType(BrandInterface $brand, string $type): iterable
-    {
-        $queryBuilder = $this->createQueryBuilder('o')
-
-            ->andWhere('o.type = :type')
-            ->setParameter('type', $type)
-
-            ->andWhere('o.owner = :brand')
-            ->setParameter('brand', $brand)
-        ;
-
-        return $this->getPaginator($queryBuilder);
+        parent::__construct($registry, BrandImage::class);
     }
 }

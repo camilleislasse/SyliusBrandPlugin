@@ -12,11 +12,13 @@ declare(strict_types=1);
 namespace ACSEO\SyliusBrandPlugin\Repository;
 
 use ACSEO\SyliusBrandPlugin\Entity\Brand;
+use ACSEO\SyliusBrandPlugin\Entity\BrandImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepositoryTrait;
-use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 
+// @phpstan-ignore-next-line
 class BrandRepository extends ServiceEntityRepository implements RepositoryInterface
 {
     use ResourceRepositoryTrait;
@@ -24,15 +26,5 @@ class BrandRepository extends ServiceEntityRepository implements RepositoryInter
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Brand::class);
-    }
-
-    public function findByPhrase(string $phrase): array
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.name LIKE :phrase OR o.code LIKE :phrase')
-            ->setParameter('phrase', '%' . $phrase . '%')
-            ->getQuery()
-            ->getResult()
-        ;
     }
 }

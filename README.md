@@ -8,10 +8,48 @@
     </a>
 </p>
 
-<h1 align="center">Plugin Skeleton</h1>
+<h1 align="center">Sylius Brand Plugin</h1>
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+<p align="center">Inspired by <a href="https://github.com/loevgaard/SyliusBrandPlugin" target="_blank">loevgaard/SyliusBrandPlugin</a></p>
 
+
+
+## Installation on an existing Sylius project
+Install the plugin via Composer:
+
+  ```bash
+composer require acseo/sylius-brand-plugin
+  ```
+
+Enable the plugin in your config/bundles.php:
+
+```php
+return [
+// ...
+ACSEO\SyliusBrandPlugin\ACSEOSyliusBrandPlugin::class => ['all' => true],
+];
+```
+
+Update your Product entity to use the ProductTrait provided by the plugin and implement ProductInterface:
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\Product;
+
+use ACSEO\SyliusBrandPlugin\Entity\ProductTrait;
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Core\Model\Product as BaseProduct;
+use ACSEO\SyliusBrandPlugin\Entity\ProductInterface;
+
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_product')]
+class Product extends BaseProduct implements ProductInterface
+{
+    use ProductTrait;
+}
+```
 ## Documentation
 
 For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,

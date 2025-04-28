@@ -1,0 +1,12 @@
+acseo:
+    brand:
+        form:
+            name: Name
+            code: Code
+            images: Images
+        ui:
+            brands: Brands
+            brand: Brand
+            image: Image
+            code: Code
+            name: Nom

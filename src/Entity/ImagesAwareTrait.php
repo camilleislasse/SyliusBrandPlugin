@@ -7,7 +7,6 @@ namespace ACSEO\SyliusBrandPlugin\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ACSEO\SyliusBrandPlugin\Entity\BrandImageInterface;
 use Sylius\Component\Core\Model\ImageInterface;
 
 trait ImagesAwareTrait
@@ -15,9 +14,10 @@ trait ImagesAwareTrait
     #[ORM\OneToMany(
         mappedBy: 'owner',
         targetEntity: BrandImage::class,
-        orphanRemoval: true,
-        cascade: ['all']
+        cascade: ['all'],
+        orphanRemoval: true
     )]
+    // @phpstan-ignore-next-line
     protected Collection $images;
 
     public function __construct()
@@ -25,11 +25,15 @@ trait ImagesAwareTrait
         $this->images = new ArrayCollection();
     }
 
+    // @phpstan-ignore-next-line
     public function getImages(): Collection
     {
         return $this->images;
     }
 
+    /**
+     * @return Collection<int|string, ImageInterface>
+     */
     public function getImagesByType(string $type): Collection
     {
         return $this->images->filter(fn (ImageInterface $image) => $type === $image->getType());

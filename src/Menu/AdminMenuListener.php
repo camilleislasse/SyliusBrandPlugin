@@ -28,9 +28,9 @@ final class AdminMenuListener
     {
         $item
             ->addChild('brands', [
-                'route' => 'acseo_sylius_brand_admin_brand_index',
+                'route' => 'acseo_admin_brand_index',
             ])
-            ->setLabel('acseo_sylius_brand.ui.brands')
+            ->setLabel('acseo.brand.ui.brands')
             ->setLabelAttribute('icon', 'building');
     }
 }

@@ -7,7 +7,6 @@ namespace ACSEO\SyliusBrandPlugin\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Product\Model\ProductInterface;
 
 trait ProductsAwareTrait
 {
@@ -16,6 +15,7 @@ trait ProductsAwareTrait
         targetEntity: ProductInterface::class,
         fetch: 'EXTRA_LAZY'
     )]
+    // @phpstan-ignore-next-line
     protected Collection $products;
 
     public function __construct()
@@ -28,6 +28,7 @@ trait ProductsAwareTrait
         return !$this->products->isEmpty();
     }
 
+    // @phpstan-ignore-next-line
     public function getProducts(): Collection
     {
         return $this->products;

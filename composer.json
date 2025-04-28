@@ -1,7 +1,8 @@
 {
-    "type": "sylius-plugin",
+    "name": "acseo/sylius-brand-plugin",
     "keywords": [
         "sylius",
+        "brand",
         "sylius-plugin"
     ],
     "license": "proprietary",
@@ -66,7 +67,10 @@
     "autoload-dev": {
         "classmap": [
             "tests/Application/Kernel.php"
-        ]
+        ],
+        "psr-4": {
+            "Tests\\ACSEO\\SyliusBrandPlugin\\App\\": "tests/Application/src/"
+        }
     },
     "scripts": {
         "post-install-cmd": [

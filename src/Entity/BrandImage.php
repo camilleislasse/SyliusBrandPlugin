@@ -11,12 +11,27 @@ declare(strict_types=1);
 
 namespace ACSEO\SyliusBrandPlugin\Entity;
 
+use ACSEO\SyliusBrandPlugin\State\ImageUploadProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Image;
-use Sylius\Component\Core\Model\ImageInterface;
+use Sylius\Resource\Metadata\Create;
+use Sylius\Resource\Metadata\Update;
+use Symfony\Component\Validator\Constraints as Assert;
+use Sylius\Bundle\CoreBundle\Validator\Constraints as SyliusAssert;
+use Sylius\Resource\Metadata\AsResource;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'acseo_brand_image')]
+#[AsResource(
+    operations: [
+        new Create(
+            processor: ImageUploadProcessor::class,
+        ),
+        new Update(
+            processor: ImageUploadProcessor::class,
+        ),
+    ],
+)]
 class BrandImage extends Image implements BrandAwareInterface
 {
     public const TYPE_LOGO = 'logo';
@@ -33,14 +48,25 @@ class BrandImage extends Image implements BrandAwareInterface
     )]
     protected $owner;
 
+    #[Assert\File(
+        maxSize: '5M',
+        uploadIniSizeErrorMessage: 'sylius.avatar_image.file.upload_ini_size',
+        groups: ['sylius']
+    )]
+    #[SyliusAssert\AllowedImageMimeTypes(groups: ['sylius'])]
+    protected $file;
+
+    #[Assert\NotBlank(groups: ['sylius'])]
+    protected $type;
+
     public function isLogo(): bool
     {
         return self::TYPE_LOGO === $this->getType();
     }
 
-    public function getBrand(): ?BrandInterface
+
+    public function getBrand(): ?object
     {
-        /** @var BrandInterface|null $brand */
         return $this->getOwner();
     }
 
